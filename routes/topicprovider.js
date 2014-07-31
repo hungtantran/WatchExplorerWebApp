@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   password : globals.dbpassword
 });
 
-ArticleProvider = function() {
+TopicProvider = function() {
   this.connection = mysql.createConnection({
     host     : globals.dbhost,
     user     : globals.dbuser,
@@ -20,8 +20,6 @@ ArticleProvider = function() {
       console.error('error connecting: ' + err.stack);
       return;
     }
-
-    console.log('Connect to mysql database successfully');
   });
 
   // Specify which database to use
@@ -34,26 +32,27 @@ ArticleProvider = function() {
 // Callback function has 2 arguments:
 // The first argument is for the error returned (if existed)
 // The second argument is for the result
-ArticleProvider.prototype.findAll = function(callback) {
-  this.connection.query('SELECT * FROM article_table', function(err, rows) {
+
+// Find the size of topic_table
+TopicProvider.prototype.findSize = function(callback) {
+  this.connection.query('SELECT COUNT(*) AS size FROM topic_table', function(err, rows) {
     if (err) {
       callback (err);
     } else {
-      console.log(rows);
       callback(null, rows);
     }
   });
 };
 
-ArticleProvider.prototype.findPage = function(pageNum, callback) {
-  this.connection.query('SELECT * FROM article_table ORDER BY date_created LIMIT '+(pageNum-1)*10+", 10", function(err, rows) {
+// Find all topics from topic_table
+TopicProvider.prototype.findAll = function(callback) {
+  this.connection.query('SELECT * FROM topic_table ORDER by id', function(err, rows) {
     if (err) {
       callback (err);
     } else {
-      console.log(rows);
       callback(null, rows);
     }
   });
 };
 
-exports.ArticleProvider = ArticleProvider;
+exports.TopicProvider = TopicProvider;

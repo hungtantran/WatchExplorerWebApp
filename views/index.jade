@@ -1,12 +1,18 @@
 extends layout
 
 block content
+    // Header including title, page number
     h1= title
+    p
+    h2= "Page "+page
+    h2= "Articles "+((page-1)*10+1)+"-"+(page*10)+" in "+size+" articles"
+
+    // Each article
     #articles
         - each article in articles
           div.article
-            div.created_at= article.date_created
+            div.date_created= "("+article.date_created+")"
+            div.domain= "("+domains[article.domain_table_id_1-1]["domain"]+")"
+
             div.title 
-                a(href="/blog/"+article.id)!= article.article_name
-            
-            div.body= article.article_name
+                a(href=article.link)!= article.article_name

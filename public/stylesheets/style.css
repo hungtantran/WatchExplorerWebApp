@@ -1,6 +1,6 @@
 body {
   font-family: "Helvetica Neue", "Lucida Grande", "Arial";
-  font-size: 13px;
+  font-size: 10px;
   text-align: center;
   text-stroke: 1px rgba(255,255,255,0.1);
   color: #555;
@@ -8,30 +8,32 @@ body {
 h1,
 h2 {
   margin: 0;
-  font-size: 22px;
+  font-size: 15px;
   color: #343434;
 }
 h1 {
   text-shadow: 1px 2px 2px #ddd;
-  font-size: 60px;
+  font-size: 30px;
 }
 #articles {
   text-align: left;
   margin-left: auto;
   margin-right: auto;
-  width: 320px;
+  width: 500px;
 }
 #articles .article {
   margin: 20px;
-}
-#articles .article .created_at {
-  display: none;
 }
 #articles .article .title {
   font-weight: bold;
   text-decoration: underline;
   background-color: #eee;
 }
-#articles .article .body {
+#articles .article .date_created {
+  font-size: 8px;
+  background-color: #ffa;
+}
+#articles .article .domain {
+  font-weight: bold;
   background-color: #ffa;
 }
