@@ -15,25 +15,52 @@ h1 {
   text-shadow: 1px 2px 2px #ddd;
   font-size: 30px;
 }
+#page ul {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+  list-style-type: none;
+  height: 30px;
+  font-size: 15px;
+}
+#page li {
+  float: left;
+  padding-right: 10px;
+  padding-left: 10px;
+}
 #articles {
+  font-size: 15px;
   text-align: left;
   margin-left: auto;
   margin-right: auto;
-  width: 500px;
+  width: 75%;
 }
 #articles .article {
+  height: 80px;
   margin: 20px;
 }
 #articles .article .title {
+  float: left;
+  width: 100%;
   font-weight: bold;
   text-decoration: underline;
   background-color: #eee;
 }
 #articles .article .date_created {
-  font-size: 8px;
+  font-size: 12px;
   background-color: #ffa;
 }
-#articles .article .domain {
+#articles .article .info {
+  width: 100%;
   font-weight: bold;
+  overflow: hidden;
   background-color: #ffa;
+}
+#articles .article .topic {
+  float: left;
+  color: #f00;
+}
+#articles .article .domain {
+  float: right;
 }

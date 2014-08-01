@@ -4,15 +4,38 @@ block content
     // Header including title, page number
     h1= title
     p
-    h2= "Page "+page
-    h2= "Articles "+((page-1)*10+1)+"-"+(page*10)+" in "+size+" articles"
+    h2= "Articles "+((curPage-1)*10+1)+"-"+(curPage*10)+" in "+size+" articles"
+
+    // Page display
+    #page
+        ul
+            - each page, index in displayPages
+              if (index > 0) && (displayPages[index]-displayPages[index-1] > 1)
+                li .
+                li .
+                li .
+
+              if (page == curPage)
+                li= page
+              else
+                li
+                    a(href=displayPageLinks[index])!= page
+
+
 
     // Each article
     #articles
-        - each article in articles
+        - each article, index in articles
           div.article
             div.date_created= "("+article.date_created+")"
-            div.domain= "("+domains[article.domain_table_id_1-1]["domain"]+")"
+            
+            div.info
+                div.topic
+                    - each topicsOfArticle in topicsOfArticles[index]
+                        = '('+topics[topicsOfArticle["topic_table_id"]-1]["topic"]+') '
+                
+                div.domain
+                    = "("+domains[article.domain_table_id_1-1]["domain"]+")"
 
             div.title 
                 a(href=article.link)!= article.article_name

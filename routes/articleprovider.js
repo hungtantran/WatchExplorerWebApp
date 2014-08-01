@@ -81,7 +81,7 @@ ArticleProvider.prototype.findPage = function(pageNum, callback) {
 
 // Find 10 articles in given page from article_table with given topic
 ArticleProvider.prototype.findTopicPage = function(pageNum, topicId, callback) {
-  this.connection.query('SELECT * FROM article_table AS A, article_topic_table AS B WHERE A.id = B.article_table_id AND B.topic_table_id = '+topicId+' ORDER BY date_created DESC, article_name LIMIT '+(pageNum-1)*10+', 10', 
+  this.connection.query('SELECT A.id, A.link, A.domain_table_id_1, A.article_name, A.type_table_1, A.date_created, B.article_table_id, B.topic_table_id FROM article_table AS A, article_topic_table AS B WHERE A.id = B.article_table_id AND B.topic_table_id = '+topicId+' ORDER BY date_created DESC, article_name LIMIT '+(pageNum-1)*10+', 10', 
     function(err, rows) {
       if (err) {
         callback (err);
@@ -91,5 +91,16 @@ ArticleProvider.prototype.findTopicPage = function(pageNum, topicId, callback) {
     });
 };
 
+// Find all topics of given article_id
+ArticleProvider.prototype.findTopicsOfArticle = function(articleId, callback) {
+  this.connection.query('SELECT B.topic_table_id FROM article_table AS A, article_topic_table AS B WHERE A.id = '+articleId+' AND A.id = B.article_table_id ORDER BY topic_table_id LIMIT 0,5', 
+    function(err, rows) {
+      if (err) {
+        callback (err);
+      } else {
+        callback(null, rows);
+      }
+    });
+};
 
 exports.ArticleProvider = ArticleProvider;
