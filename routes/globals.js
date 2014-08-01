@@ -1,3 +1,4 @@
-exports.dbhost = 'localhost';
-exports.dbuser = 'root';
-exports.dbpassword = '';
+exports.dbhost          = 'localhost';
+exports.dbuser          = 'root';
+exports.dbpassword      = '';
+

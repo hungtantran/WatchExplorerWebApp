@@ -8,6 +8,7 @@ var connection = mysql.createConnection({
 });
 
 ArticleProvider = function() {
+  console.log("new object");
   this.connection = mysql.createConnection({
     host     : globals.dbhost,
     user     : globals.dbuser,
@@ -44,6 +45,18 @@ ArticleProvider.prototype.findSize = function(callback) {
   });
 };
 
+// Find the size of article_table with given topic
+ArticleProvider.prototype.findTopicSize = function(topicId, callback) {
+  this.connection.query('SELECT COUNT(*) AS size FROM article_table AS A, article_topic_table AS B WHERE A.id = B.article_table_id AND B.topic_table_id = '+topicId, function(err, rows) {
+    if (err) {
+      callback (err);
+    } else {
+      callback(null, rows);
+    }
+  });
+};
+
+
 // Find all articles from article_table
 ArticleProvider.prototype.findAll = function(callback) {
   this.connection.query('SELECT * FROM article_table', function(err, rows) {
@@ -57,7 +70,7 @@ ArticleProvider.prototype.findAll = function(callback) {
 
 // Find 10 articles in given page from article_table
 ArticleProvider.prototype.findPage = function(pageNum, callback) {
-  this.connection.query('SELECT * FROM article_table ORDER BY date_created DESC, article_name LIMIT '+(pageNum-1)*10+", 10", function(err, rows) {
+  this.connection.query('SELECT * FROM article_table ORDER BY date_created DESC, article_name LIMIT '+(pageNum-1)*10+', 10', function(err, rows) {
     if (err) {
       callback (err);
     } else {
@@ -65,5 +78,18 @@ ArticleProvider.prototype.findPage = function(pageNum, callback) {
     }
   });
 };
+
+// Find 10 articles in given page from article_table with given topic
+ArticleProvider.prototype.findTopicPage = function(pageNum, topicId, callback) {
+  this.connection.query('SELECT * FROM article_table AS A, article_topic_table AS B WHERE A.id = B.article_table_id AND B.topic_table_id = '+topicId+' ORDER BY date_created DESC, article_name LIMIT '+(pageNum-1)*10+', 10', 
+    function(err, rows) {
+      if (err) {
+        callback (err);
+      } else {
+        callback(null, rows);
+      }
+    });
+};
+
 
 exports.ArticleProvider = ArticleProvider;

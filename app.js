@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 // Routes
 var indexPage = require('./routes/index');
+var topicPage = require('./routes/topic');
 
 // Configuration of the app
 var app = module.exports = express();
@@ -26,7 +27,9 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 //app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routing rules
 app.use('/', indexPage);
+app.use('/topic', topicPage);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
