@@ -7,11 +7,15 @@ var domains         = null;
 var topics          = null;
 var articleProvider = objects.articleProvider;
 
+// Initialize varialbe that might be null because of async call to database
+function initializeVariable() {
+    domains  = objects.domains;
+    topics   = objects.topics;
+}
 
 // Process topic page request
 function processTopicPage(req, pageNum, res) {
-    domains  = objects.domains;
-    topics   = objects.topics;
+    initializeVariable();
     var topicsLength = topics.length;
 
     // Iterate through the topics array to find the requested topic
@@ -69,6 +73,50 @@ function renderTopicPage(req, pageNum, topic, res) {
         })
     })
 }
+
+// Return an array of topics with the given prefix
+function findTopicsWithPrefix(prefix) {
+    initializeVariable();
+    var topicsWithPrefix = [];
+    var topicsLength = topics.length;
+    var count = 0;
+    prefix = prefix.toLowerCase();
+
+    // Iterate through array to find topic match with given prefix
+    for (var i = 0; i < topicsLength; i++) {
+        if (topics[i]['topic'].toLowerCase().indexOf(prefix) == 0) {
+            topicsWithPrefix.push(topics[i]);
+            count++;
+        }
+
+        if (count >= 10) break;
+    }
+
+    // If not enough 10, iterate through array to find topic has given prefix has inner substring
+    if (count < 10) {
+        for (var i = 0; i < topicsLength; i++) {
+            if (topics[i]['topic'].toLowerCase().indexOf(prefix) > 0) {
+                topicsWithPrefix.push(topics[i]);
+                count++;
+            }
+
+            if (count >= 10) break;
+        }
+    }
+
+    return topicsWithPrefix;
+}
+
+// Send back json for ajax auto complete search
+router.get('/getPrefixTopic/', function(req, res) {
+    res.json([]); 
+});
+
+router.get('/getPrefixTopic/:prefix', function(req, res) {
+    var prefix = req.params.prefix;
+    var topicsWithPrefix = findTopicsWithPrefix(prefix);
+    res.json(topicsWithPrefix);
+});
 
 // Get topic page
 router.get('/:topic', function(req,res){

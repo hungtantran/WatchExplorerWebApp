@@ -4,6 +4,14 @@ block content
     // Header including title, page number
     h1= title
     p
+
+    #searchForm
+        form
+            span Search:
+            input(type="text", name="search", id="searchInput", size="100", onkeyup="autoComplete()")
+        #searchResult
+
+    p
     h2= "Articles "+((curPage-1)*10+1)+"-"+(curPage*10)+" in "+size+" articles"
 
     // Page display
@@ -38,4 +46,4 @@ block content
                     = "("+domains[article.domain_table_id_1-1]["domain"]+")"
 
             div.title 
-                a(href=article.link)!= article.article_name
+                a(href=article.link, target="_blank")!= article.article_name
