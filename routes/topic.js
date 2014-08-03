@@ -107,12 +107,23 @@ function findTopicsWithPrefix(prefix) {
     return topicsWithPrefix;
 }
 
+// Get the main page with a list of topics
+router.get('/list', function(req, res) {
+    initializeVariable();
+    res.render('topic', {
+        title:  'Watch Explorer Topic Page',
+        topics: topics
+    });
+});
+
 // Send back json for ajax auto complete search
 router.get('/getPrefixTopic/', function(req, res) {
+    console.log('2');
     res.json([]); 
 });
 
 router.get('/getPrefixTopic/:prefix', function(req, res) {
+    console.log('3');
     var prefix = req.params.prefix;
     var topicsWithPrefix = findTopicsWithPrefix(prefix);
     res.json(topicsWithPrefix);
@@ -120,10 +131,12 @@ router.get('/getPrefixTopic/:prefix', function(req, res) {
 
 // Get topic page
 router.get('/:topic', function(req,res){
+    console.log('4');
     processTopicPage(req, 1, res);
 });
 
 router.get('/:topic/:id', function(req,res){
+    console.log('5');
     // Check if page number parameter is a number or not
     if (!isNaN(req.params.id)) {
         processTopicPage(req, parseInt(req.params.id), res);

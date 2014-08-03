@@ -2,13 +2,23 @@
 var ArticleProvider = require('./articleprovider').ArticleProvider;
 var articleProvider= new ArticleProvider();
 
+// Helper provider
+var HelperProvider  = require('./helper').HelperProvider;
+var helperProvider  = new HelperProvider();
+
 // Object handle topic_table
 var TopicProvider = require('./topicprovider').TopicProvider;
 var topicProvider= new TopicProvider();
 var topics = null;
 topicProvider.findAll(function(error, docs) {
     topics = docs;
-    exports.topics = topics
+
+    // Add param dimension to topics array
+    for (var i = 0; i < topics.length; i++) {
+        topics[i]['param'] = helperProvider.convertStringToParam(topics[i]['topic']);
+    }
+
+    exports.topics = topics;
 })
 
 // Object handle domain_table

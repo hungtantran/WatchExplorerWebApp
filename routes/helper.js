@@ -11,8 +11,14 @@ HelperProvider.prototype.redirectTo = function(res, location) {
 // Function that convert a given string into a url parameter
 HelperProvider.prototype.convertStringToParam = function(str) {
     var param = str.toLowerCase();
-    param = param.replace(" ","-");
-    param = param.replace("--","-");
+
+    while (param.indexOf(' ') != -1) { 
+        param = param.replace(' ','-');
+    }
+
+    while (param.indexOf('--') != -1) { 
+        param = param.replace('--','-');
+    }
 
     return param;
 };

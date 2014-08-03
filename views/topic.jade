@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    // Header including title, page number
+    h1= title
+    p
+
+    #searchForm
+        form
+            span Search:
+            input(type="text", name="search", id="searchInput", size="100", onkeyup="autoComplete()")
+        #searchResult
+
+    p
+
+    #articles
+        ul
+        - each topic, index in topics
+            li
+                a(href='/topic/'+topic['param'])!= topic['topic']
