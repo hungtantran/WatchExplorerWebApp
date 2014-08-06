@@ -16,7 +16,7 @@ function renderMainPage(pageNum, res) {
         var totalPageNum = Math.floor((totalSize-1)/10+1);
         var displayPages = helperProvider.displayPageArray(pageNum, totalPageNum);
         var displayPageLinks = new Array();
-
+        
         for (var i = 0; i < displayPages.length; i++) {
             displayPageLinks.push("/"+displayPages[i]);
         }

@@ -6,6 +6,10 @@ var articleProvider= new ArticleProvider();
 var HelperProvider  = require('./helper').HelperProvider;
 var helperProvider  = new HelperProvider();
 
+// Watch provider
+var WatchProvider  = require('./watchprovider').WatchProvider;
+var watchProvider  = new WatchProvider();
+
 // Object handle topic_table
 var TopicProvider = require('./topicprovider').TopicProvider;
 var topicProvider= new TopicProvider();
@@ -33,5 +37,6 @@ domainProvider.findAll(function(error, docs) {
 exports.articleProvider = articleProvider;
 exports.topicProvider   = topicProvider;
 exports.domainProvider  = domainProvider;
+exports.watchProvider   = watchProvider;
 
 

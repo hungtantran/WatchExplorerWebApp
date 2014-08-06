@@ -6,6 +6,7 @@ var helperProvider  = new HelperProvider();
 var domains         = null;
 var topics          = null;
 var articleProvider = objects.articleProvider;
+var watchProvider   = objects.watchProvider;
 
 // Initialize varialbe that might be null because of async call to database
 function initializeVariable() {
@@ -34,7 +35,7 @@ function processTopicPage(req, pageNum, res) {
 
 function findTopicsOfArticles(articles, topicsOfArticles, index, res, topic, topics, domains, totalSize, pageNum, displayPages, displayPageLinks) {
     if (index >= articles.length) {
-        res.render('index', {
+        res.render('topic', {
             title:              'Watch Explorer ' + topic['topic']+' Page',
             articles:           articles,
             topics:             topics,
@@ -110,7 +111,7 @@ function findTopicsWithPrefix(prefix) {
 // Get the main page with a list of topics
 router.get('/list', function(req, res) {
     initializeVariable();
-    res.render('topic', {
+    res.render('topicList', {
         title:  'Watch Explorer Topic Page',
         topics: topics
     });
@@ -118,25 +119,43 @@ router.get('/list', function(req, res) {
 
 // Send back json for ajax auto complete search
 router.get('/getPrefixTopic/', function(req, res) {
-    console.log('2');
     res.json([]); 
 });
 
 router.get('/getPrefixTopic/:prefix', function(req, res) {
-    console.log('3');
     var prefix = req.params.prefix;
     var topicsWithPrefix = findTopicsWithPrefix(prefix);
     res.json(topicsWithPrefix);
 });
 
+// Send back json for ajax auto complete search
+router.get('/getTopicDistribution/:topic', function(req, res) {
+    initializeVariable();
+    var topic = req.params.topic;
+    var topicId = -1;
+    for (var i = 0; i < topics.length; i++) {
+        if (topics[i]['param'] == topic) {
+            topicId = topics[i]['id'];
+        }
+    }
+
+    console.log('topic = '+topicId);
+    watchProvider.findWatchPriceStat(topicId, function(err, docs) {
+        console.log('Here');
+        if (err) {
+
+        } else
+            if (docs.length == 1) 
+                res.json(docs[0]);
+    });
+});
+
 // Get topic page
 router.get('/:topic', function(req,res){
-    console.log('4');
     processTopicPage(req, 1, res);
 });
 
 router.get('/:topic/:id', function(req,res){
-    console.log('5');
     // Check if page number parameter is a number or not
     if (!isNaN(req.params.id)) {
         processTopicPage(req, parseInt(req.params.id), res);

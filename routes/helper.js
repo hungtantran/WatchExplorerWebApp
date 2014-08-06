@@ -1,4 +1,3 @@
-
 // HelperProvider constructor
 HelperProvider = function() {};
 

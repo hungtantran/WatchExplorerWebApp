@@ -12,9 +12,38 @@ block content
         #searchResult
 
     p
+    h2= "Articles "+((curPage-1)*10+1)+"-"+(curPage*10)+" in "+size+" articles"
 
-    #articles
+    // Page display
+    #page
         ul
-        - each topic, index in topics
-            li
-                a(href='/topic/'+topic['param'])!= topic['topic']
+            - each page, index in displayPages
+              if (index > 0) && (displayPages[index]-displayPages[index-1] > 1)
+                li .
+                li .
+                li .
+
+              if (page == curPage)
+                li= page
+              else
+                li
+                    a(href=displayPageLinks[index])!= page
+
+    div(id='chart_div')
+
+    // Each article
+    #articles
+        - each article, index in articles
+          div.article
+            div.date_created= "("+article.date_created+")"
+            
+            div.info
+                div.topic
+                    - each topicsOfArticle in topicsOfArticles[index]
+                        = '('+topics[topicsOfArticle["topic_table_id"]-1]["topic"]+') '
+                
+                div.domain
+                    = "("+domains[article.domain_table_id_1-1]["domain"]+")"
+
+            div.title 
+                a(href=article.link, target="_blank")!= article.article_name
