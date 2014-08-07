@@ -35,12 +35,10 @@ WatchProvider = function() {
 
 // Find the size of article_table
 WatchProvider.prototype.findWatchPriceStat = function(topicId, callback) {
-  console.log('SELECT * FROM watch_price_stat_table WHERE topic_table_id = '+topicId);
   this.connection.query('SELECT * FROM watch_price_stat_table WHERE topic_table_id = '+topicId, function(err, rows) {
     if (err) {
       callback (err);
     } else {
-      console.log('Get result back');
       callback(null, rows);
     }
   });

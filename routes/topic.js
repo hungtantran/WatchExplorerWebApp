@@ -139,9 +139,7 @@ router.get('/getTopicDistribution/:topic', function(req, res) {
         }
     }
 
-    console.log('topic = '+topicId);
     watchProvider.findWatchPriceStat(topicId, function(err, docs) {
-        console.log('Here');
         if (err) {
 
         } else

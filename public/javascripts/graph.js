@@ -76,6 +76,15 @@ function drawChart(topicDistData) {
   'height':600};
 
   // Instantiate and draw our chart, passing in some options.
-  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+  var chart = new google.visualization.BarChart(document.getElementById('chart'));
   chart.draw(data, options);
+
+  var statistics = "Price Statistics:<br/>";
+  statistics += "Lowest Price: $"+distData['lowest_price']+"<br/>";
+  statistics += "Highest Price: $"+distData['highest_price']+"<br/>";
+  statistics += "Mean: $"+distData['mean_price']+"<br/>";
+  statistics += "Median: $"+distData['median_price']+"<br/>";
+  statistics += "Standard Deviation: $"+distData['standard_deviation_price']+"<br/>";
+
+  document.getElementById('statistics').innerHTML = statistics;
 }
