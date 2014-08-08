@@ -11,9 +11,3 @@ block content
     #searchResult
 
     p
-
-    #articles
-        ul
-        - each topic, index in topics
-            li
-                a(href='/topic/'+topic['param'])!= topic['topic']

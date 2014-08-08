@@ -6,10 +6,9 @@ block content
     p
 
     #searchForm
-        form
-            span Search:
-            input(type="text", name="search", id="searchInput", size="100", onkeyup="autoComplete()")
-        #searchResult
+        span Search:
+        input(type="text", id="searchInput", size="100", onkeyup="autoComplete()", onKeyPress="submitenter(this, event)")
+    #searchResult
 
     p
     h2= "Articles "+((curPage-1)*10+1)+"-"+(curPage*10)+" in "+size+" articles"

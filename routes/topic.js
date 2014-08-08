@@ -1,12 +1,11 @@
 var express         = require('express');
 var router          = express.Router();
 var objects         = require('./objects');
-var HelperProvider  = require('./helper').HelperProvider;
-var helperProvider  = new HelperProvider();
 var domains         = null;
 var topics          = null;
 var articleProvider = objects.articleProvider;
 var watchProvider   = objects.watchProvider;
+var helperProvider  = objects.helperProvider;
 
 // Initialize varialbe that might be null because of async call to database
 function initializeVariable() {

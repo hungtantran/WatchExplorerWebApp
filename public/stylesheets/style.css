@@ -19,7 +19,8 @@ h1 {
   font-size: 20px;
   font-weight: bold;
 }
-#searchForm #searchResult {
+#searchResult {
+  font-weight: bold;
   font-size: 14px;
 }
 #page ul {

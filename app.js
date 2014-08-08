@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 // Routes
 var indexPage = require('./routes/index');
 var topicPage = require('./routes/topic');
+var searchPage = require('./routes/search');
 
 // Configuration of the app
 var app = module.exports = express();
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routing rules
 app.use('/', indexPage);
 app.use('/topic', topicPage);
+app.use('/search', searchPage);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,9 +1,8 @@
 var express             = require('express');
 var router              = express.Router();
-var HelperProvider      = require('./helper').HelperProvider;
-var helperProvider      = new HelperProvider();
 var objects             = require('./objects');
 var articleProvider     = objects.articleProvider;
+var helperProvider      = objects.helperProvider;
 
 // Render main page given page number
 function renderMainPage(pageNum, res) {

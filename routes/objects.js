@@ -38,5 +38,6 @@ exports.articleProvider = articleProvider;
 exports.topicProvider   = topicProvider;
 exports.domainProvider  = domainProvider;
 exports.watchProvider   = watchProvider;
+exports.helperProvider  = helperProvider;
 
 
